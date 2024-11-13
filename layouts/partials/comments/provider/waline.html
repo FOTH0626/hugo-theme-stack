@@ -27,8 +27,18 @@
     {{- end -}}
 {{- end -}}
 
+
+
 <script>
-    /// Waline client configuration see: https://waline.js.org/en/reference/client.html
-    Waline.init({{ $config | jsonify | safeJS }});
+  document.addEventListener("DOMContentLoaded", function() {
+      setTimeout(() => {
+          const walineContainer = document.querySelector('#waline');
+          if (walineContainer) {
+              Waline.init({{ $config | jsonify | safeJS }});
+          } else {
+              console.error("Waline container not found. Make sure the element with ID 'waline' exists.");
+          }
+      }, 500);  // Delay 500ms to load waline comments.
+  });
 </script>
 {{- end -}}
